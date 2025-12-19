@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מִפְעַל הַמַּמְתַּקִּים - חֶדֶר בְּרִיחָה מָתֵמָטִי</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            width: 90vw;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #ff6b9d;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        .question {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3436;
+            box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box label {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 20px;
+            font-size: 32px;
+            text-align: center;
+            border: 3px solid #dfe6e9;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .input-box input::placeholder {
+            color: #b2bec3;
+            font-weight: normal;
+            font-size: 24px;
+        }
+
+        .input-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .input-box input:disabled {
+            background-color: #f5f6fa;
+            color: #2d3436;
+            cursor: not-allowed;
+            opacity: 1;
+        }
+
+        .input-box.correct input {
+            background-color: #90EE90;
+            border-color: #27ae60;
+        }
+
+        .input-box.incorrect input {
+            background-color: #ffcccc;
+            border-color: #e74c3c;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .feedback {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 3px solid #c3e6cb;
+        }
+
+        .feedback.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 3px solid #f5c6cb;
+        }
+
+        .button-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .button {
+            width: 100%;
+            padding: 18px;
+            font-size: 22px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .check-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .check-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .try-again-button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            display: none;
+        }
+
+        .try-again-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .next-button {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            display: none;
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4);
+        }
+
+        .candy-icon {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bounce {
+            animation: bounce 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="candy-icon">🍬🍭🍫</div>
+        <h1>מִפְעַל הַמַּמְתַּקִּים</h1>
+        <p class="subtitle">פְּרוֹפֵסוֹר סֻכְּרוֹבִיץ זָקוּק לְעֶזְרָתְכֶם!</p>
+        
+        <div class="question">
+            🧪 הַנִּסּוּי הָרִאשׁוֹן: פִּתְרוּ אֶת הַחִידָה הַמָּתֵמָטִית! 🧪
+        </div>
+
+        <div class="input-grid">
+            <div class="input-box">
+                <label>שִׁנּוּי</label>
+                <input type="number" id="change" placeholder="">
+            </div>
+            <div class="input-box">
+                <label>סוֹף</label>
+                <input type="text" id="end" value="לֹא יָדוּעַ" disabled>
+            </div>
+            <div class="input-box full-width">
+                <label>הַתְחָלָה</label>
+                <input type="number" id="start" placeholder="">
+            </div>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="button-container">
+            <button class="button check-button" id="checkBtn" onclick="checkAnswer()">
+                🔍 בִּדְקוּ אֶת הַתְּשׁוּבָה!
+            </button>
+
+            <button class="button try-again-button" id="tryAgainBtn" onclick="tryAgain()">
+                🔄 נַסּוּ שׁוּב!
+            </button>
+
+            <button class="button next-button" id="nextBtn" onclick="nextLevel()">
+                ➡️ עִבְרוּ לַשָּׁלָב הַבָּא!
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // התשובות הנכונות
+        const correctAnswers = {
+            change: 5,
+            start: 12
+        };
+
+        function checkAnswer() {
+            const changeInput = document.getElementById('change');
+            const startInput = document.getElementById('start');
+            const feedback = document.getElementById('feedback');
+            const checkBtn = document.getElementById('checkBtn');
+            const tryAgainBtn = document.getElementById('tryAgainBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // קבלת הערכים שהוזנו
+            const changeValue = parseInt(changeInput.value);
+            const startValue = parseInt(startInput.value);
+
+            // בדיקה אם כל השדות מלאים
+            if (!changeInput.value || !startInput.value) {
+                feedback.textContent = '❗ אוֹפְס! נָא לְמַלֵּא אֶת כָּל הַשְּׁדוֹת';
+                feedback.className = 'feedback error';
+                feedback.style.display = 'block';
+                document.querySelector('.container').classList.add('shake');
+                setTimeout(() => {
+                    document.querySelector('.container').classList.remove('shake');
+                }, 500);
+                return;
+            }
+
+            // בדיקת התשובות
+            const isChangeCorrect = changeValue === correctAnswers.change;
+            const isStartCorrect = startValue === correctAnswers.start;
+
+            // צביעת התיבות
+            changeInput.parentElement.className = 'input-box ' + (isChangeCorrect ? 'correct' : 'incorrect');
+            startInput.parentElement.className = 'input-box full-width ' + (isStartCorrect ? 'correct' : 'incorrect');
+
+            if (isChangeCorrect && isStartCorrect) {
+                // תשובה נכונה!
+                feedback.textContent = '🎉 כָּל הַכָּבוֹד! לִחֲצוּ עַל הַחֵץ הָאָפוֹר מִשְּׂמֹאל כְּדֵי לַעֲבוֹר לַשָּׁלָב הַבָּא! 🎉';
+                feedback.className = 'feedback success bounce';
+                feedback.style.display = 'block';
+                checkBtn.style.display = 'none';
+                tryAgainBtn.style.display = 'none';
+                nextBtn.style.display = 'block';
+                
+                // נעילת השדות
+                changeInput.disabled = true;
+                startInput.disabled = true;
+            } else {
+                // תשובה לא נכונה
+                feedback.textContent = '🔬 אוֹפְס, זֶה עֲדַיִן לֹא נָכוֹן! 🔬';
+                feedback.className = 'feedback error shake';
+                feedback.style.display = 'block';
+                checkBtn.style.display = 'none';
+                tryAgainBtn.style.display = 'block';
+            }
+        }
+
+        function tryAgain() {
+            const changeInput = document.getElementById('change');
+            const startInput = document.getElementById('start');
+            const feedback = document.getElementById('feedback');
+            const checkBtn = document.getElementById('checkBtn');
+            const tryAgainBtn = document.getElementById('tryAgainBtn');
+
+            // איפוס השדות
+            changeInput.value = '';
+            startInput.value = '';
+
+            // הסרת הצבעים
+            changeInput.parentElement.className = 'input-box';
+            startInput.parentElement.className = 'input-box full-width';
+
+            // הסתרת ההודעה
+            feedback.style.display = 'none';
+
+            // החזרת הכפתור לבדיקה
+            checkBtn.style.display = 'block';
+            tryAgainBtn.style.display = 'none';
+
+            // מיקוד בשדה הראשון
+            changeInput.focus();
+        }
+
+        function nextLevel() {
+            alert('🎊 מַזָּל טוֹב! עָבַרְתֶּם לַשָּׁלָב הַבָּא בְּמִפְעַל הַמַּמְתַּקִּים! 🎊\n\nפְּרוֹפֵסוֹר סֻכְּרוֹבִיץ גֵּאֶה בָּכֶם!');
+            // כאן אפשר להוסיף מעבר לדף הבא או לשלב הבא
+        }
+
+        // אפשרות ללחוץ Enter כדי לבדוק
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const checkBtn = document.getElementById('checkBtn');
+                const tryAgainBtn = document.getElementById('tryAgainBtn');
+                
+                if (checkBtn.style.display !== 'none') {
+                    checkAnswer();
+                } else if (tryAgainBtn.style.display !== 'none') {
+                    tryAgain();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
