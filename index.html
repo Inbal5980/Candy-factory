@@ -24,37 +24,38 @@
         .container {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 2vh 3vw;
             max-width: 1200px;
             width: 90vw;
             aspect-ratio: 16 / 9;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
+            overflow: hidden;
         }
 
         h1 {
             color: #ff6b9d;
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 36px;
+            margin-bottom: 0.5vh;
+            font-size: 3vw;
         }
 
         .subtitle {
             text-align: center;
             color: #667eea;
-            margin-bottom: 25px;
-            font-size: 22px;
+            margin-bottom: 1.5vh;
+            font-size: 1.8vw;
         }
 
         .question {
             background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            padding: 25px;
+            padding: 1.5vh 2vw;
             border-radius: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 2vh;
             text-align: center;
-            font-size: 24px;
+            font-size: 1.8vw;
             font-weight: bold;
             color: #2d3436;
             box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
@@ -63,8 +64,8 @@
         .input-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 25px;
+            gap: 1.5vw;
+            margin-bottom: 2vh;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -77,16 +78,16 @@
         .input-box label {
             display: block;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 0.8vh;
             font-weight: bold;
             color: #2d3436;
-            font-size: 20px;
+            font-size: 1.6vw;
         }
 
         .input-box input {
             width: 100%;
-            padding: 20px;
-            font-size: 32px;
+            padding: 1.5vh 1vw;
+            font-size: 2.2vw;
             text-align: center;
             border: 3px solid #dfe6e9;
             border-radius: 10px;
@@ -97,7 +98,7 @@
         .input-box input::placeholder {
             color: #b2bec3;
             font-weight: normal;
-            font-size: 24px;
+            font-size: 1.8vw;
         }
 
         .input-box input:focus {
@@ -129,10 +130,10 @@
 
         .feedback {
             text-align: center;
-            padding: 20px;
+            padding: 1.5vh 1vw;
             border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 22px;
+            margin-bottom: 1.5vh;
+            font-size: 1.6vw;
             font-weight: bold;
             display: none;
         }
@@ -156,14 +157,14 @@
 
         .button {
             width: 100%;
-            padding: 18px;
-            font-size: 22px;
+            padding: 1.5vh 1vw;
+            font-size: 1.6vw;
             font-weight: bold;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            margin-bottom: 10px;
+            margin-bottom: 0.5vh;
         }
 
         .check-button {
@@ -199,9 +200,9 @@
         }
 
         .candy-icon {
-            font-size: 50px;
+            font-size: 3vw;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 1vh;
         }
 
         @keyframes shake {
