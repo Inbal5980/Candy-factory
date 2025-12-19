@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self' https://genial.ly https://*.genial.ly https://app.genial.ly https://view.genial.ly;"
+          "value": "default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' https: data: blob:; font-src 'self' https: data:; connect-src 'self' https:; frame-ancestors 'self' https://genial.ly https://*.genial.ly https://app.genial.ly https://view.genial.ly;"
         }
       ]
     }
